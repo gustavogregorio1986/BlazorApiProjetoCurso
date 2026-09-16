@@ -52,5 +52,34 @@ namespace BlazorApiProjetoCurso.Controllers
             _context.SaveChanges();
             return Ok(evento); 
         }
+
+        [HttpPut("{id}")]
+        public IActionResult EditEvent(int id, EventDto eventDto)
+        {
+            var evento = _context.Events.Find(id);
+
+            if (evento == null) return NotFound();
+
+            evento.Title = eventDto.Title;
+            evento.Description = eventDto.Description;
+            evento.Start = eventDto.Start;
+            evento.End = eventDto.End;
+            evento.AllDay = eventDto.AllDay;
+
+            _context.SaveChanges();
+            return Ok(evento);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEvent(int id)
+        {
+            var evento = _context.Events.Find(id);
+
+            if (evento == null) return NotFound();
+
+            _context.Events.Remove(evento);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="BlazorApiProjetoCurso/BlazorApiProjetoCurso.csproj" />
+  <Project Path="BlazorFrontEndProjetoCurso/BlazorFrontEndProjetoCurso.csproj" />
 </Solution>
