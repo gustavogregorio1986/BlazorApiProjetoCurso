@@ -1,4 +1,5 @@
 ﻿using BlazorApiProjetoCurso.Data;
+using BlazorApiProjetoCurso.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,23 @@ namespace BlazorApiProjetoCurso.Controllers
             }
 
             return Ok(events);
+        }
+
+        [HttpPost]
+        public IActionResult CreateEvent(EventDto eventDto)
+        {
+            var evento = new Models.Event
+            {
+                Title = eventDto.Title,
+                Description = eventDto.Description,
+                Start = eventDto.Start,
+                End = eventDto.End,
+                AllDay = eventDto.AllDay,
+                CreatedAt = DateTime.Now
+            };
+            _context.Events.Add(evento);
+            _context.SaveChanges();
+            return Ok(evento); 
         }
     }
 }
