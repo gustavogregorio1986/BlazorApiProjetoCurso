@@ -1,32 +1,66 @@
 ﻿@page "/events"
+@using BlazorFrontEndProjetoCurso.Models
 
-<h3>EventList</h3>
+@if (Events == null)
+{
+    <p>Carregando eventos...</p>
+}
+else
+{
+    <a class="btn btn-primary mb-3 me-2" href="/Events/Create">Adicionar Evento</a>
 
-<a class="btn btn-primary mb-3 me-2" href="/events/add">Adicionar Evento</a>
+    <table class="table mb-5 table-bordered table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Data Inicio</th>
+                <th>Dia Todos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
-<table class="table mb-5 table-bordered table-striped">
-     <thead class="table-primary">
-          <tr>
-               <th>Id</th>
-               <th>Título</th>
-               <th>Descrição</th>
-               <th>Dia Todos</th>
-               <th>Ações</th>
-         </tr>
-     </thead>
+        <tbody>
 
-     <tbody>
-          <td>Id</td>
-          <td>Título</td>
-          <td>Descrição</td>
-          <td>Dia Todos</td>
-           <td style="white-space:nowrap; width:10px;">
-               <a class="btn btn-primary btn-sm">Editar</a>
-            <button class="btn btn-danger btn-sm">Remover</button>
-           </td>
-     </tbody>
-</table>
+            @foreach(var evento in Events)
+            {
+                <tr>
+                    <td>@evento.Id</td>
+                    <td>@evento.Title</td>
+                    <td>@evento.Description</td>
+                    <td>@evento.Start.ToString("dd/MM/yyyy")</td>
+                    <td>
 
+                        @if(evento.AllDay)
+                        {
+                            <span class="badge rounded-pill bg-success">Sim</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-danger">Não</span>
+                        }   
+
+                    </td>
+                    <td style="white-space:nowrap; width:10px;">
+                        <a class="btn btn-primary btn-sm" href="/Events/Edit/@evento.Id">Editar</a>
+                        <button class="btn btn-danger btn-sm">Remover</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+
+@inject HttpClient http;
 @code {
 
+    private IList<Event>? Events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Events = await http.GetFromJsonAsync<List<Event>>("/api/Events");
+    }
 }
