@@ -1,0 +1,32 @@
+﻿@page "/events"
+
+<h3>EventList</h3>
+
+<a class="btn btn-primary mb-3 me-2" href="/events/add">Adicionar Evento</a>
+
+<table class="table mb-5 table-bordered table-striped">
+     <thead class="table-primary">
+          <tr>
+               <th>Id</th>
+               <th>Título</th>
+               <th>Descrição</th>
+               <th>Dia Todos</th>
+               <th>Ações</th>
+         </tr>
+     </thead>
+
+     <tbody>
+          <td>Id</td>
+          <td>Título</td>
+          <td>Descrição</td>
+          <td>Dia Todos</td>
+           <td style="white-space:nowrap; width:10px;">
+               <a class="btn btn-primary btn-sm">Editar</a>
+            <button class="btn btn-danger btn-sm">Remover</button>
+           </td>
+     </tbody>
+</table>
+
+@code {
+
+}
