@@ -1,0 +1,69 @@
+﻿@page "/Events/Create"
+@using BlazorFrontEndProjetoCurso.Dto
+
+<div class="row mb-5">
+   <div class="col-lg-8">
+
+      <h1 class="mb-5">Novo Evento</h1>
+
+       <div class="mb-3">
+            <label class="col-md-4 col-form-label">Titulo</label>
+            <div class="col-md-8">
+                <input class="form-control" @bind="EventDtoData.Title" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-md-4 col-form-label">Data Inicio</label>
+            <div class="col-md-8">
+                <input type="date" class="form-control" @bind="EventDtoData.Start" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-md-4 col-form-label">Data Fim</label>
+            <div class="col-md-8">
+                <input type="date" class="form-control" @bind="EventDtoData.End" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-md-4 col-form-label">Titulo</label>
+            <div class="col-md-8">
+                <input class="form-control" @bind="EventDtoData.Title" />
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="col-md-4 col-form-label">Descricao</label>
+            <div class="col-md-8">
+                <textarea class="form-control" @bind="EventDtoData.Description" ></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+           <div class="col-md-8 offset-md-4">
+              <div class="form-check">
+                 <input class="form-check-input" type="checkbox" @bind="EventDtoData.AllDay"/>
+                 <label class="form-check-label">Todo o dia</label>
+              </div>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="offset-md-4 col-md-4 d-grid">
+                <button class="btn btn-primary">Salvar</button>
+            </div>
+            <div class="col-md-4 d-grid">
+                <a class="btn btn-outline-primary" href="/Events">Cancelar</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+    public EventDto EventDtoData { get; set; } = new();
+
+}
