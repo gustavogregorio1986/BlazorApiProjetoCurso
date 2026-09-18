@@ -44,7 +44,7 @@ else
                     </td>
                     <td style="white-space:nowrap; width:10px;">
                         <a class="btn btn-primary btn-sm" href="/Events/Edit/@evento.Id">Editar</a>
-                        <button class="btn btn-danger btn-sm">Remover</button>
+                        <button class="btn btn-danger btn-sm" @onclick="async() => await RemoveEvent(evento.Id)">Remover</button>
                     </td>
                 </tr>
             }
@@ -55,6 +55,7 @@ else
 
 
 @inject HttpClient http;
+@inject SweetAlertService swal;
 @code {
 
     private IList<Event>? Events;
@@ -62,5 +63,27 @@ else
     protected override async Task OnInitializedAsync()
     {
         Events = await http.GetFromJsonAsync<List<Event>>("/api/Events");
+    }
+
+    private async Task RemoveEvent(int id)
+    {
+        SweetAlertResult result = await swal.FireAsync(new SweetAlertOptions
+        {
+            Title = "Tem certeza?",
+            Text = "Você não poderá reverter isso!",
+            Icon = SweetAlertIcon.Warning,
+            ShowCancelButton = true,
+            ConfirmButtonText = "Sim, remover!",
+            CancelButtonText = "Cancelar"
+        });
+
+        if(!string.IsNullOrEmpty(result.Value))
+        {
+            var response = await http.DeleteAsync($"/api/Events/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Events = Events?.Where(e => e.Id != id).ToList();
+            }
+        }
     }
 }
