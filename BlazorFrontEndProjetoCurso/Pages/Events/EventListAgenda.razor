@@ -1,5 +1,12 @@
-﻿<h3>EventListAgenda</h3>
+﻿<div class="mb-5" id="eventAgendaId"></div>
 
-@code {
-
+@inject IJSRuntime IJSRuntime;
+@code{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await IJSRuntime.InvokeVoidAsync("loadAgenda", "https://localhost:7253/api/Events");
+        }
+    }
 }
